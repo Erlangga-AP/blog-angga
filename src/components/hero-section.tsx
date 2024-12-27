@@ -4,40 +4,29 @@ import Link from "next/link";
 export default function HeroSection() {
   return (
     <>
-      <section className="text-white relative min-h-[80vh] overflow-hidden mb-5">
-        <div className="absolute">
-          <Image src="/hd-bg.webp" width={1500} height={1200} alt="" />
+      <section className="text-white relative min-h-[80vh] overflow-hidden mb-5 flex items-center font-LibreFranklin">
+        <div className="absolute w-full h-full">
+          <Image src="/hd-bg.webp" fill alt="" className="object-cover" />
         </div>
-        <div className="relative">
-          <h1>DRIVE SMART</h1>
-          <h1>DRIVE SAFE</h1>
-          <p>
+        <div className="relative pl-5">
+          <div className="font-bold text-[50px]">
+            <h1>DRIVE SMART</h1>
+            <h1>DRIVE SAFE</h1>
+          </div>
+
+          <p className="pt-2 pb-5">
             Lorem ipsum odor amet, consectetuer adipiscing elit. Class magnis
-            urna sem pretium platea quam ligula vitae. Nisl montes porta euismod
-            felis aenean. Vivamus amet convallis in, elementum tortor nisi.
-            Lectus fermentum augue pellentesque mattis montes nisi facilisis
-            turpis. Sed mauris iaculis in ultricies facilisi mattis? Euismod
-            curae quam felis euismod, porta mollis.
           </p>
-          <Link className="flex bg-white w-fit text-black" href="">
+
+          <Link
+            className="flex bg-white rounded-[4px] w-fit text-black p-2 gap-8 font-bold"
+            href=""
+          >
             Lihat Motornya
-            <Image src="/arrow-right.svg" height={25} width={15} alt="" />
+            <Image src="/arrow-right.svg" height={15} width={15} alt="" />
           </Link>
         </div>
       </section>
     </>
   );
 }
-
-//   <div>
-//     <h1 className="font-Rethink_Sans">I&apos;m Erlangga</h1>
-//     <p>
-//       I work with React Ecosystem, and write to teach people how to rebuild
-//       and redefine fundamental concepts through mental models.
-//     </p>
-//   </div>
-
-//   <div>
-//     <a href="">Learn How</a>
-//     <Link href="about-me">More about me</Link>
-//   </div>

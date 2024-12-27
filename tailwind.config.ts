@@ -6,7 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        Inter: ["Inter", "sans-serif"],
+        LibreFranklin: ["Libre Franklin", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
