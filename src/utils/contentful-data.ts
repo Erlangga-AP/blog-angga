@@ -1,5 +1,44 @@
 import * as contentful from "contentful";
 
+interface ContentfulImage {
+  fields: { file: { url: string } };
+}
+
+export interface Category {
+  tile: string;
+  slug: string;
+  description: string;
+  image: string;
+  category: { fields: { name: string } };
+}
+
+export interface Post {
+  fields: {
+    blogImage: ContentfulImage;
+    title: string;
+    slug: string;
+    description: string;
+    categories: {
+      fields: {
+        name: string;
+      };
+    };
+  };
+}
+
+export interface Item {
+  fields: {
+    blogImage: ContentfulImage;
+    image: ContentfulImage;
+    slug: string;
+    name: string;
+    content: string;
+    title: string;
+    description: string;
+    categories: { fields: { name: string; slug: string; description: string } };
+  };
+}
+
 // Gateway to client data
 const client = contentful.createClient({
   space: "q6rx6pxhzrxs",
@@ -7,56 +46,33 @@ const client = contentful.createClient({
   accessToken: "XgLdaK_hAQ6svWsk5jqLKIzD-ice85UtESoWffZbVQg",
 });
 
-// Get hero section entries/data/records
-export async function getHeroSection() {
-  try {
-    const data = await client.getEntries({
-      content_type: "heroSection",
-    });
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-// Get both blog post and hero section entries
-export async function getAllEntries() {
-  try {
-    const data = await client.getEntries();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
 //Get entries for blog post only
-export async function getAllBlogPost() {
+export async function getAllBlogPost({
+  fieldsFeatured,
+}: { fieldsFeatured?: boolean } = {}) {
   try {
-    const data = await client.getEntries({
-      content_type: "title",
-    });
+    const data = (await client.getEntries({
+      content_type: "blog",
+      "fields.featured": fieldsFeatured,
+    })) as unknown as { items: Item[] };
 
-    return data.items.map((post) => {
-      let thumbnailUrl = post?.fields?.thumbnailImage?.fields?.file.url;
+    return data.items.map((blog) => {
+      const blogImageUrl = blog?.fields?.blogImage?.fields?.file.url;
 
-      if (!thumbnailUrl) {
-        thumbnailUrl =
-          "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=";
-      }
       return {
-        title: post.fields.title,
-        slug: post.fields.slug,
-        content: post.fields.content,
-        thumbnailImage: `https:${thumbnailUrl}`,
-        categories: post.fields.categories,
+        blogImage: `https:${blogImageUrl}`,
+        title: blog.fields.title,
+        slug: blog.fields.slug,
+        description: blog.fields.description,
+        category: {
+          name: blog?.fields?.categories?.fields?.name,
+          slug: blog?.fields?.categories?.fields?.slug,
+          description: blog?.fields?.categories?.fields?.description,
+        },
       };
     });
   } catch (error) {
     console.error(error);
-    return null;
   }
 }
 
@@ -72,30 +88,61 @@ export async function getAllHeroSection() {
   }
 }
 
-export async function getSingleBlogPost() {
+export async function getSingleBlogPost(slug: string) {
   try {
-    const data = await client.getEntries({
-      content_type: "title",
-    });
-    return data;
+    const data = (await client.getEntries({
+      content_type: "blog",
+      "fields.slug": slug,
+    })) as unknown as { items: Item[] };
+    const blogImageUrl =
+      data.items[0].fields?.blogImage?.fields?.file?.url || "";
+    return {
+      blogImage: `https:${blogImageUrl}`,
+      title: data.items[0].fields.title,
+      slug: data.items[0].fields.slug,
+      content: data.items[0].fields.content,
+      categories: data.items[0].fields.categories,
+    };
   } catch (error) {
     console.error(error);
     return null;
   }
 }
 
-//Some spesific posts by title
-export async function getPostsByTitle() {
+export async function getAllCategories({
+  field_popular,
+}: {
+  field_popular?: boolean;
+} = {}) {
+  try {
+    const data = (await client.getEntries({
+      content_type: "blogCategory",
+      "fields.popular": field_popular,
+    })) as unknown as { items: Item[] };
+    return data.items.map((post) => {
+      const imageUrl = post?.fields?.image?.fields.file.url;
+      return {
+        image: `https:${imageUrl}`,
+        title: post.fields.name,
+        slug: post.fields.slug,
+        description: post.fields.description,
+      };
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function searchPostByTitle(keyword: string) {
   try {
     const res = await client.getEntries({
-      content_type: "blogPost",
-      "fields.title[match]": keyword,
+      content_type: "blog",
+      query: keyword,
     });
+    return res.items;
   } catch (error) {
     console.error(error);
     return null;
   }
 }
-
-//Some spesific posts by category
-export async function getPostsByCategory() {}

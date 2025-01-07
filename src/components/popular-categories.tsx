@@ -1,15 +1,20 @@
+import { getAllCategories } from "@/utils/contentful-data";
 import Link from "next/link";
 
-export default function PopularCategories() {
+export default async function PopularCategories() {
+  const categories = await getAllCategories({ field_popular: true });
+
   return (
-    <section className="flex justify-center items-center gap-10 border-t-[1px] border-b-[1px] border-gray-300 py-4">
-      <Link href="">Grand American Touring</Link>
-      <div className="h-[25px] w-[1px] bg-gray-300"></div>
-      <Link href="">Cruiser</Link>
-      <div className="h-[25px] w-[1px] bg-gray-300"></div>
-      <Link href="">Adventure Touring</Link>
-      <div className="h-[25px] w-[1px] bg-gray-300"></div>
-      <Link href="">Sport</Link>
+    <section className="flex flex-wrap justify-center items-center gap-4 md:gap-8 border-t-[1px] border-b-[1px] border-gray-300 py-4 px-4">
+      {categories?.map((category) => (
+        <Link
+          key={category.slug as string}
+          href={`/categories/${category.slug}`}
+          className="text-sm md:text-base lg:text-lg font-medium text-gray-800 hover:text-blue-600 transition"
+        >
+          {category.title}
+        </Link>
+      ))}
     </section>
   );
 }
