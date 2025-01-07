@@ -73,18 +73,33 @@ export default function NavBar() {
       {isOpen && (
         <div className="md:hidden bg-white shadow-md">
           <ul className="flex flex-col gap-2 px-5 py-3">
-            <Link href="/" className="py-2 px-3 hover:text-gray-600">
-              Home
-            </Link>
-            <Link href="/blog" className="py-2 px-3 hover:text-gray-600">
-              Blog
-            </Link>
-            <Link href="/categories" className="py-2 px-3 hover:text-gray-600">
-              Categories
-            </Link>
-            <Link href="/about-us" className="py-2 px-3 hover:text-gray-600">
-              About Us
-            </Link>
+            <li>
+              <Link href="/" className="py-2 px-3 hover:text-gray-600">
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/blog" className="py-2 px-3 hover:text-gray-600">
+                Blog
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/categories"
+                className="py-2 px-3 hover:text-gray-600"
+              >
+                Categories
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/about-us" className="py-2 px-3 hover:text-gray-600">
+                About Us
+              </Link>
+            </li>
+
             <form
               onSubmit={handleSearch}
               className="flex mt-3 border-[2px] border-black rounded-md"
