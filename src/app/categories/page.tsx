@@ -29,7 +29,7 @@ export default async function Categories() {
               </p>
 
               <Link
-                className="flex items-center  hover:bg-gray-300 text-[20px] p-2 rounded-[4px] w-fit text-black py-2 gap-2 font-bold mt-4 mb-9"
+                className="flex items-center  hover:bg-gray-300 text-[20px] p-2 rounded-[4px] w-fit text-black py-2 gap-2 font-bold mt-4 mb-9 transition"
                 href={`/categories/${item.slug}`}
               >
                 Lihat Motornya

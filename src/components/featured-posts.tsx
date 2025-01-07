@@ -17,7 +17,7 @@ export default async function FeaturedPosts() {
             className="bg-white rounded-lg shadow-lg overflow-hidden"
           >
             {/* Image Section */}
-            <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px]">
+            <div className="relative w-full h-[350px] sm:h-[250px] md:h-[300px]">
               <Image
                 className="object-cover"
                 src={post?.blogImage}
@@ -36,7 +36,7 @@ export default async function FeaturedPosts() {
               </p>
 
               <Link
-                className="flex items-center gap-2 text-black hover:text-black font-bold mt-5"
+                className="flex items-center gap-2 hover:bg-gray-300 rounded-md w-fit text-black px-4 py-2 font-bold mt-5 transition"
                 href={`/blog/${post.slug}`}
               >
                 Lihat Motornya

@@ -43,7 +43,7 @@ export default async function SlugCategories({
                 </span>
 
                 <Link
-                  className="flex items-center hover:bg-gray-300 rounded-[4px] w-fit text-black p-2 gap-2 font-bold mt-4 sm:mt-5 mb-10"
+                  className="flex items-center hover:bg-gray-300 rounded-[4px] w-fit text-black p-2 gap-2 font-bold mt-4 sm:mt-5 mb-10 transition"
                   href={`/blog/${item.slug}`}
                 >
                   Lihat Motornya

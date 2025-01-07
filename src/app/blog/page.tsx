@@ -54,7 +54,7 @@ export default function Blog() {
             className="font-LibreFranklin mb-10 flex flex-col md:flex-row gap-6"
           >
             {/* Image */}
-            <div className="relative w-full md:w-[850px] h-[250px] md:h-[400px]">
+            <div className="relative w-full md:w-[891px] h-[350px] md:h-[400px]">
               <Image
                 src={item.blogImage}
                 alt="Blog Image"

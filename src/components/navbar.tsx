@@ -63,7 +63,7 @@ export default function NavBar() {
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="bg-gray-100 px-4 py-2 rounded-md text-black border-black"
+              className="bg-gray-100 px-4 py-2 rounded-md text-black border-black border-[2px]"
             />
           </form>
         </div>
@@ -87,7 +87,7 @@ export default function NavBar() {
             </Link>
             <form
               onSubmit={handleSearch}
-              className="flex mt-3 border-[1px] border-black rounded-md"
+              className="flex mt-3 border-[2px] border-black rounded-md"
             >
               <input
                 type="text"
