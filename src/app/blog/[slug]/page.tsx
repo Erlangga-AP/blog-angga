@@ -17,7 +17,7 @@ export default async function DetailPage({ params }: { params: Params }) {
   const slug = params.slug;
 
   // Ambil data post
-  const post: BlogPost | null = await getSingleBlogPost(slug);
+  const post = (await getSingleBlogPost(slug)) as unknown as BlogPost;
 
   // Tangani jika data tidak ditemukan
   if (!post) {
